@@ -35,6 +35,23 @@ def atualizar_nome_tarefa(tarefas, indice_tarefa, novo_nome_tarefa):
   return
 
 
+# Completando uma tarefa
+def completar_tarefa(tarefas, indice_tarefa):
+  indice_tarefa_ajustado = int(indice_tarefa) - 1
+  tarefas[indice_tarefa_ajustado]["completada"] = True
+  print(f"Tarefa {indice_tarefa} marcada como completada")
+
+
+# Excluindo uma tarefa completada
+
+def deletar_tarefas_completadas(tarefas):
+  for tarefa in tarefas:
+    if tarefa["completada"]:
+      tarefas.remove(tarefa)
+  
+  print("Tarefas completadas foram deletadas.")
+
+  return 
 
 
 # Lista de tarefas
@@ -63,6 +80,15 @@ while True:
     indice_tarefa = input("Digite o número da tarefa que deseja atualizar: ")
     novo_nome = input("Digite o novo nome da tarefa: ")
     atualizar_nome_tarefa(tarefas, indice_tarefa, novo_nome)
+
+  elif escolha == "4":
+    ver_tarefas(tarefas)
+    indice_tarefa = input("Digite o número da tarefa que deseja completar: ")
+    completar_tarefa(tarefas, indice_tarefa)
+
+  elif escolha == "5":
+    deletar_tarefas_completadas(tarefas)
+    ver_tarefas(tarefas)
 
   elif escolha == "6":
     break
