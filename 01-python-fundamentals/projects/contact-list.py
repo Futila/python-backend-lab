@@ -19,13 +19,13 @@ Use this checklist to help organize your delivery
 
 [x] Develop a view of the list of registered contacts
 
-[ ] Create functionality to edit an existing contact
+[x] Create functionality to edit an existing contact
 
-[ ] Implement an option to mark/unmark a contact as a favorite
+[x] Implement an option to mark/unmark a contact as a favorite
 
-[ ] Develop a view of the list of favorite contacts
+[x] Develop a view of the list of favorite contacts
 
-[ ] Create functionality to delete a contact
+[x] Create functionality to delete a contact
 
 
 """
@@ -36,7 +36,7 @@ def add_contact(agenda, name, phone, email):
     "name": name, 
     "phone": phone, 
     "email": email, 
-    "isFavorite": False
+    "isFavorite": False 
   }
 
   agenda.append(contact)
@@ -49,10 +49,16 @@ def add_contact(agenda, name, phone, email):
 
 def show_contact_list(agenda):
 
+  if(len(agenda) == 0):
+    print("\nNo contacts registered yet!")
+    return
+
   print("\nContact List.")
   
   for index, contact in enumerate(agenda, start=1):
-    print(f"{index}. {contact['name']} | {contact['phone']} | {contact['email']}")
+
+    is_favorite_contact = "| ❤️" if contact["isFavorite"] else ""
+    print(f"{index}. {contact['name']} | {contact['phone']} | {contact['email']} {is_favorite_contact} ")
 
   return
 
@@ -77,6 +83,51 @@ def edit_contact(agenda, new_contact, index_contact):
 
 
 
+def mark_unmark_favorite(agenda, index_contact):
+  adjusted_index = int(index_contact) - 1
+
+  if(adjusted_index >=0 and adjusted_index < len(agenda)):
+    agenda[adjusted_index]["isFavorite"] = not agenda[adjusted_index]["isFavorite"]
+    status = "was marked" if agenda[adjusted_index]["isFavorite"] else "was unmarked"
+    print(f"\nContact {agenda[adjusted_index]['name']}- {agenda[adjusted_index]['phone']} {status} successfully as Favorite!")
+
+  return
+
+
+def show_favorite_contacts(agenda):
+
+  print("\nFavorite Contacts")
+
+  has_favorite = False
+
+  for index, contact in enumerate(agenda, start=1):
+    if contact["isFavorite"]:
+      print(f"{index}. {contact['name']} ❤️")
+      has_favorite = True
+
+  if not has_favorite:
+    print("No favorite contacts.")
+
+  return
+
+
+def delete_contact(agenda, index_contact):
+  adjusted_index = index_contact - 1 
+
+  if (adjusted_index >= 0 and adjusted_index < len(agenda)):
+      user_response = input("\nAre you sure you want to delete this contact ? (y/n)")
+      if user_response == "y":
+        deleted_contact = agenda.pop(adjusted_index)
+        print(f"\nContact {deleted_contact['name']} was successfully deleted.")
+
+  else: 
+    print("\nYou entered an invalid index!")
+  
+  return
+
+
+
+
 
 agenda = []
 
@@ -86,8 +137,9 @@ while True:
   print("2. Show contact list")
   print("3. Edit a contact")
   print("4. Mark/unmark a contact as a favorite")
-  print("5. Delete a contact")
-  print("6. Exit")
+  print("5. Show favorite contacts")
+  print("6. Delete a contact")
+  print("7. Exit")
   choice = int(input("\nChoose an option to continue: "))
 
  
@@ -115,16 +167,26 @@ while True:
     }
     edit_contact(agenda, new_contact, index_contact)
 
+  elif choice == 4:
+    show_contact_list(agenda)
+    index_contact= input("Choose the number you want to mark/unmark as favorite: ")
+    mark_unmark_favorite(agenda, index_contact)
+
+  elif choice == 5:
+    show_favorite_contacts(agenda)
+
 
   elif choice == 6:
-    break
+    show_contact_list(agenda)
+    index_contact = int(input("Choose the number you want to delete: "))
+    delete_contact(agenda, index_contact)
+
+  elif choice == 7:
+      break
 
 
   else:
     print("Sorry! you entered an invalid option. Try again!")
-
-
-
 
 
 
