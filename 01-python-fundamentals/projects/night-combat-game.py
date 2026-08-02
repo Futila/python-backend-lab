@@ -8,6 +8,22 @@ Também criaremos um método para exibir os detalhes do personagem, que mostrar�
 """
 
 
+"""
+Continuamos trabalhando no projeto do jogo. Criamos a classe "Jogo" para orquestrar a gestão do jogo. 
+Adicionamos um método para iniciar a batalha, que acontece em turnos. Utilizamos um loop "while" para continuar a batalha enquanto o herói e o inimigo estiverem vivos. 
+Exibimos os detalhes dos personagens e permitimos ao usuário escolher entre um ataque normal ou especial do herói. A batalha continua até que um dos personagens tenha sua vida zerada. 
+"""
+
+"""
+continuamos a trabalhar na mecânica de combate do jogo. Já implementamos a escolha do usuário entre ataque normal e ataque especial, mas agora precisamos fazer com que esses ataques causem dano ao inimigo e ao herói. 
+Para isso, criamos o método "atacar" na classe mãe do personagem, que recebe o alvo como parâmetro. Dentro desse método, calculamos o dano com base no nível do personagem e exibimos uma mensagem informando quem atacou quem e o dano causado.
+No entanto, ainda não implementamos o método para decrementar a vida do alvo. Além disso, precisamos implementar a mecânica do inimigo atacando o herói. 
+Continuaremos a trabalhar nesses aspectos nas próximas aulas.
+"""
+
+
+
+
 # Character - Main class
 # Hero - controlled by the user
 # Enemy - user's opponent
@@ -57,8 +73,29 @@ class Enemy(Character):
       return f"{super().show_details()}\nType: {self.get_type()}\n"
 
 
-hero = Hero(name="Hero", life=100, level=5, skill="Super Power")
-print(hero.show_details())
 
-enemy = Enemy(name="bat", life=50, level=3, type="flying")
-print(enemy.show_details())
+class Game:
+   """ Game orchestrator class """
+
+   def __init__(self) -> None:
+      self.hero = Hero(name="Hero", life=100, level=5, skill="Super Power")
+      self.enemy = Enemy(name="bat", life=50, level=3, type="flying")
+
+   def start_batlle(self):
+      """ Manage the turn-based battle """
+      print("Starting the battle!")
+
+      while self.hero.get_life() > 0 and self.enemy.get_life() > 0:
+         print("\nCharacteres Details:")
+         print(self.hero.show_details())
+         print(self.enemy.show_details())
+
+         input("Press enter to attack...")
+         choice = input("Choose (1 - Normal Attack, 2 - Especial Attack):")
+
+
+
+# Create the game instance and start the battle
+game = Game()
+game.start_batlle()
+
