@@ -1,52 +1,24 @@
 """
-Nesta aula, vamos começar a trabalhar em um projeto de um jogo de combate em turno. 
-O objetivo é criar as primeiras classes do jogo usando os conhecimentos sobre classes que aprendemos. 
-Vamos começar com a classe "Personagem", que será a classe mãe e conterá atributos comuns a todos os personagens, como nome, vida e nível.
-Em seguida, criaremos as classes "Herói" e "Inimigo", que herdarão da classe "Personagem". O herói terá um atributo adicional chamado "habilidade", enquanto o inimigo terá um atributo chamado "tipo". 
-Também criaremos um método para exibir os detalhes do personagem, que mostrará o nome, vida, nível e habilidade (no caso do herói) ou tipo (no caso do inimigo).
+Project: Turn-Based Combat Game (Version 1.000)
 
+Description:
+This script implements an Object-Oriented turn-based battle game. It simulates a combat 
+system between a player-controlled Hero and an Enemy, orchestrating the mechanics through 
+a continuous battle loop.
+
+Architecture & Mechanics:
+- Character (Base Class): Encapsulates common attributes (name, life, level). It handles 
+  core combat mechanics like receiving damage and executing standard attacks. Damage is 
+  calculated dynamically using the 'random' library based on the character's level.
+- Hero (Child Class): Inherits from Character, adding a 'skill' attribute and a 
+  'special_attack' method that yields higher randomized damage.
+- Enemy (Child Class): Inherits from Character, adding a 'type' attribute.
+- Game (Orchestrator Class): Manages the battle flow. It presents a menu for the user 
+  to choose their attack type, processes the enemy's counter-attack, and loops until 
+  one of the characters' life points reaches exactly 0.000.
 """
-
-
-"""
-Continuamos trabalhando no projeto do jogo. Criamos a classe "Jogo" para orquestrar a gestão do jogo. 
-Adicionamos um método para iniciar a batalha, que acontece em turnos. Utilizamos um loop "while" para continuar a batalha enquanto o herói e o inimigo estiverem vivos. 
-Exibimos os detalhes dos personagens e permitimos ao usuário escolher entre um ataque normal ou especial do herói. A batalha continua até que um dos personagens tenha sua vida zerada. 
-"""
-
-"""
-continuamos a trabalhar na mecânica de combate do jogo. Já implementamos a escolha do usuário entre ataque normal e ataque especial, mas agora precisamos fazer com que esses ataques causem dano ao inimigo e ao herói. 
-Para isso, criamos o método "atacar" na classe mãe do personagem, que recebe o alvo como parâmetro. Dentro desse método, calculamos o dano com base no nível do personagem e exibimos uma mensagem informando quem atacou quem e o dano causado.
-No entanto, ainda não implementamos o método para decrementar a vida do alvo. Além disso, precisamos implementar a mecânica do inimigo atacando o herói. 
-Continuaremos a trabalhar nesses aspectos nas próximas aulas.
-"""
-
-
-"""
-Aque especial do nosso herói. Criamos um método chamado "ataque especial" dentro da classe do herói, onde calculamos o dano com base no nível do herói. Em seguida, usamos o método "receber ataque" do inimigo para causar o dano. 
-Também adicionamos a opção de escolher o ataque especial no menu do usuário. 
-Além disso, implementamos a mecânica do inimigo atacar o herói, verificando se o inimigo ainda está vivo antes de realizar o ataque. Ao final, vencemos a batalha contra o morcego.
-Na próxima aula, continuaremos aprendendo sobre Programação Orientada a Objetos aplicada ao nosso projeto.
-"""
-
-
-"""
-Melhorar o sistema de combate do nosso jogo. Atualmente, o dano dos ataques é sempre o mesmo, o que tira a graça do jogo. 
-Para resolver isso, vamos utilizar a biblioteca random do Python. Com essa biblioteca, podemos gerar valores de dano aleatórios com base no nível do personagem.
-Vamos importar a biblioteca e utilizar a função randint para gerar um intervalo de valores para o dano. Assim, a cada rodada, teremos um valor diferente de dano, o que torna o jogo mais interessante. 
-Além disso, vou mostrar como o Visual Studio pode ajudar a corrigir erros de importação.
-
-"""
-
-
-
-# Character - Main class
-# Hero - controlled by the user
-# Enemy - user's opponent
-
 
 import random
-
 
 class Character:
   def __init__(self, name, life, level):
