@@ -47,6 +47,16 @@ class Character:
   def show_details(self):
      return f"Name: {self.get_name()}\nLife: {self.get_life()}\nLevel: {self.get_level()}"
 
+  def come_under_attack(self, damage):
+     self.__life -= damage
+     if self.__life < 0:
+        self.__life = 0
+
+  def attack(self, target):
+     damage = self.__level * 2
+     target.come_under_attack(damage)
+     print(f"{self.get_name()} attacked {target.get_name()} and caused {damage} of damage!")
+
 
 class Hero(Character):
    def __init__(self, name, life, level, skill):
@@ -92,6 +102,18 @@ class Game:
 
          input("Press enter to attack...")
          choice = input("Choose (1 - Normal Attack, 2 - Especial Attack):")
+
+
+         if choice == '1':
+            self.hero.attack(self.enemy)
+         else:
+            print("You entered an invalid option! Try again.")
+
+
+      if self.hero.get_life() > 0:
+         print("\nCongratulations, you won the battle!")
+      else:
+          print("\nYou lost!")
 
 
 
