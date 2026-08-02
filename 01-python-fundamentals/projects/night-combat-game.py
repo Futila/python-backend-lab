@@ -22,6 +22,22 @@ Continuaremos a trabalhar nesses aspectos nas próximas aulas.
 """
 
 
+"""
+Aque especial do nosso herói. Criamos um método chamado "ataque especial" dentro da classe do herói, onde calculamos o dano com base no nível do herói. Em seguida, usamos o método "receber ataque" do inimigo para causar o dano. 
+Também adicionamos a opção de escolher o ataque especial no menu do usuário. 
+Além disso, implementamos a mecânica do inimigo atacar o herói, verificando se o inimigo ainda está vivo antes de realizar o ataque. Ao final, vencemos a batalha contra o morcego.
+Na próxima aula, continuaremos aprendendo sobre Programação Orientada a Objetos aplicada ao nosso projeto.
+"""
+
+
+"""
+Melhorar o sistema de combate do nosso jogo. Atualmente, o dano dos ataques é sempre o mesmo, o que tira a graça do jogo. 
+Para resolver isso, vamos utilizar a biblioteca random do Python. Com essa biblioteca, podemos gerar valores de dano aleatórios com base no nível do personagem.
+Vamos importar a biblioteca e utilizar a função randint para gerar um intervalo de valores para o dano. Assim, a cada rodada, teremos um valor diferente de dano, o que torna o jogo mais interessante. 
+Além disso, vou mostrar como o Visual Studio pode ajudar a corrigir erros de importação.
+
+"""
+
 
 
 # Character - Main class
@@ -70,6 +86,13 @@ class Hero(Character):
       return f"{super().show_details()}\nSkill: {self.get_skill()}\n"
 
 
+   def special_attack(self, target):
+      damage = self.get_level() * 5 # Damage increased
+      target.come_under_attack(damage)
+      print(f"{self.get_name()} used special skill {self.get_skill()} in {target.get_name()} and caused {damage} of damage!")
+      
+
+
 class Enemy(Character):
    def __init__(self, name, life, level, type):
       super().__init__(name, life, level)
@@ -89,7 +112,7 @@ class Game:
 
    def __init__(self) -> None:
       self.hero = Hero(name="Hero", life=100, level=5, skill="Super Power")
-      self.enemy = Enemy(name="bat", life=50, level=3, type="flying")
+      self.enemy = Enemy(name="bat", life=100, level=5, type="flying")
 
    def start_batlle(self):
       """ Manage the turn-based battle """
@@ -106,8 +129,18 @@ class Game:
 
          if choice == '1':
             self.hero.attack(self.enemy)
+
+         elif choice == '2':
+            self.hero.special_attack(self.enemy)
+
          else:
             print("You entered an invalid option! Try again.")
+
+
+         if self.hero.get_life() > 0:
+            # Enemy attacks Hero
+            self.enemy.attack(self.hero)
+
 
 
       if self.hero.get_life() > 0:
